@@ -105,12 +105,21 @@ export function HomePage() {
                 numberOfPosts: filteredData.numberOfPosts + 1,
             });
             const profileURL = await getDownloadURL(ref(storage, 'ProfilePicture/' + filteredData.Email + '/profilepicture.png'));
-            await addDoc(postsRef, {
-                Name: filteredData.Name,
-                Email: filteredData.Email,
-                Post: post,
-                ProfileURL: profileURL,
-            });
+            if (!profileURL) {
+                await addDoc(postsRef, {
+                    Name: filteredData.Name,
+                    Email: filteredData.Email,
+                    Post: post,
+                });
+            } else {
+                await addDoc(postsRef, {
+                    Name: filteredData.Name,
+                    Email: filteredData.Email,
+                    Post: post,
+                    ProfileURL: profileURL,
+                });
+            }
+    
             console.log("Posted Successfully");
             const getPosts = async () => {
                 try {
