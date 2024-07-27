@@ -1,10 +1,12 @@
 import * as React from 'react';
 import './App.css';
 import SvgIcon from '@mui/material/SvgIcon';
+import OtherHousesIcon from '@mui/icons-material/OtherHouses';
 import { AppBar, Typography, Toolbar, ImageList, ImageListItem, Switch, Button, Rating, Checkbox, FormControlLabel, FormGroup, TextField, CssBaseline } from '@mui/material';
 import { brown, orange, pink, purple, red, yellow } from '@mui/material/colors';
 import ReactDOM from 'react-dom/client';
 import Avatar from '@mui/material/Avatar';
+import ImageIcon from '@mui/icons-material/Image';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
@@ -19,30 +21,9 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { BrowserRouter as Router, Link, Routes, Route, useNavigate } from 'react-router-dom';
 import { Switch as RouterSwitch } from "react-router-dom";
 import LoginPage from './LoginPage';
+import { Images } from './Images';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-function openApp() {
-    //root.unmount();
-    return(
-        root.render(
-            <React.StrictMode>
-                <App />
-            </React.StrictMode>
-        )
-    )
-}
-
-function openProfilePage() {
-    //root.unmount();
-    return(
-        root.render(
-        <React.StrictMode>
-            <ProfilePage />
-        </React.StrictMode>
-        )
-    )
-}
 
 function HomeIcon(props) {
     return (
@@ -80,6 +61,10 @@ export function HomePage() {
         setAnchorE1(null);
     };
 
+    const openProfilePage = () => {
+        navigate('/Profile');
+    };
+
     const logOut = async () => {
         try {
             await signOut(auth);
@@ -109,6 +94,10 @@ export function HomePage() {
             console.log(err);
         };
     }, []);
+
+    const openImages = () => {
+        navigate("/Images");
+    }
 
     const uploadPost = async () => {
         try {
@@ -178,16 +167,17 @@ export function HomePage() {
                     onClick={handleClose}
                     onClose={handleClose}
                 >
-                    <Link to="/Profile">
-                    <MenuItem /*onClick={openProfilePage}*/>
+                    <MenuItem onClick={openProfilePage}>
                         <Avatar /> Profile
                     </MenuItem>
-                    </Link>
                     <MenuItem>
                         About AyushChat
                     </MenuItem>
                     <MenuItem>
                         <Settings /> Settings
+                    </MenuItem>
+                    <MenuItem onClick={openImages}>
+                        <ImageIcon />Images
                     </MenuItem>
                     <MenuItem onClick={logOut}>
                         <Logout /> Sign Out
@@ -227,6 +217,7 @@ export function HomePage() {
             } />
             <Route path="/Login" element={<LoginPage />} />
             <Route path="/Profile" element={<ProfilePage />} />
+            <Route path="/Images" element={<Images />} />
         </Routes>
         </>
     );

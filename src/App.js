@@ -18,6 +18,7 @@ import {
   Link
 } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import { Images } from './Images';
 
 function HomeIcon(props) {
   return (
@@ -150,6 +151,7 @@ export function App() {
           <Route path="/Login" element={<LoginPage />} />
           <Route path="/Home" element={<HomePage />} />
           <Route path="/Profile" element={<ProfilePage />} />
+          <Route path="/Images" element={<Images />} />
         </Routes>
       </div>
     </>

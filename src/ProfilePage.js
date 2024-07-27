@@ -2,6 +2,8 @@ import './App.css';
 import { AppBar, Typography, Toolbar, ImageList, ImageListItem, Switch, Button, Rating, Checkbox, FormControlLabel, FormGroup, TextField, CssBaseline, Avatar } from '@mui/material';
 import * as React from 'react';
 import SvgIcon from '@mui/material/SvgIcon';
+import ImageIcon from '@mui/icons-material/Image';
+import OtherHousesIcon from '@mui/icons-material/OtherHouses';
 import { brown, green, orange, pink, purple, red, yellow } from '@mui/material/colors';
 import { auth, googleProvider } from "./config/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
@@ -22,18 +24,9 @@ import MenuList from '@mui/material/MenuList';
 import Paper from '@mui/material/Paper';
 import { useNavigate } from 'react-router-dom';
 import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
+import { Images } from './Images';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-function openHomePage() {
-    return(
-        root.render(
-            <React.StrictMode>
-                <HomePage />
-            </React.StrictMode>
-        )
-    );
-}
 
 function HomeIcon(props) {
     return (
@@ -56,6 +49,10 @@ export function ProfilePage() {
 
     const goToPage = (path) => {
         navigate(path);
+    };
+
+    const openHomePage = () => {
+        goToPage('/Home');
     };
 
     const handleClick = (event) => {
@@ -103,6 +100,10 @@ export function ProfilePage() {
         }
     };
 
+    const openImages = () => {
+        goToPage('/Images');
+    };
+
     const [fileUpload, setFileUpload] = React.useState(null);
 
     const uploadProfilePicture = async () => {
@@ -138,11 +139,12 @@ export function ProfilePage() {
         onClose={handleClose}
         onClick={handleClose}
       >
-                    <Link to="/Home">
-                    <MenuItem /*onClick={openHomePage}*/>
-                        <Avatar /> HomePage
+                    <MenuItem onClick={openHomePage}>
+                        <OtherHousesIcon /> HomePage
                     </MenuItem>
-                    </Link>
+                    <MenuItem onClick={openImages}>
+                        <ImageIcon /> Images
+                    </MenuItem>
                     <MenuItem>
                         About AyushChat
                     </MenuItem>
@@ -187,6 +189,7 @@ export function ProfilePage() {
           </>
         } />
         <Route path="/Home" element={<HomePage />} />
+        <Route path="/Images" element={<Images />} />
         </Routes>
         </>
     );
