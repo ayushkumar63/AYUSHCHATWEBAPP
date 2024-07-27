@@ -111,13 +111,13 @@ export function HomePage() {
                     Name: filteredData.Name,
                     Email: filteredData.Email,
                     Post: post,
+                    ProfileURL: profileURL,
                 });
             } catch(err) {
                 await addDoc(postsRef, {
                     Name: filteredData.Name,
                     Email: filteredData.Email,
                     Post: post,
-                    ProfileURL: profileURL,
                 });
                 console.log(err);
             }
