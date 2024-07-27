@@ -117,6 +117,7 @@ export function HomePage() {
                 const filesFolderRef = ref(storage, 'ProfilePicture/' + email + '/profilepicture.png');
                 const fileUploadDefault = './DefaultProfilePicture.png';
                 await uploadBytes(filesFolderRef, fileUploadDefault);
+                const profileURL = await getDownloadURL(ref(storage, 'ProfilePicture/' + filteredData.Email + '/profilepicture.png'));
                 await addDoc(postsRef, {
                     Name: filteredData.Name,
                     Email: filteredData.Email,
