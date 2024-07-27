@@ -21,6 +21,11 @@
   height: 100px;
 }
 
+.PostImage {
+  width: 275px;
+  height: 250px;
+}
+
 .HomePage {
   margin-left: 20px;
 }

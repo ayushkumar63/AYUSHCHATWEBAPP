@@ -207,8 +207,7 @@ export function HomePage() {
             {thePosts.map((doc) => (
                 <div>
                     <img className='ProfilePictureImage' src={doc.data().ProfileURL} />
-                    <Typography variant='h6'>{doc.data().Name}</Typography>
-                    <Typography variant='body1'>{doc.data().Post}</Typography>
+                    <Typography variant='h6'><b>{doc.data().Name}</b>: {doc.data().Post}</Typography>
                     <hr />
                 </div>
             ))}
