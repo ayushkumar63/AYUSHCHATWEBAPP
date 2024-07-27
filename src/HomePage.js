@@ -15,7 +15,7 @@ import { ProfilePage } from './ProfilePage';
 import { auth } from './config/firebase';
 import { signOut } from 'firebase/auth';
 import { App } from './App';
-import { getDownloadURL, ref } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -114,10 +114,14 @@ export function HomePage() {
                     ProfileURL: profileURL,
                 });
             } catch(err) {
+                const filesFolderRef = ref(storage, 'ProfilePicture/' + email + '/profilepicture.png');
+                const fileUploadDefault = './DefaultProfilePicture.png';
+                await uploadBytes(filesFolderRef, fileUploadDefault);
                 await addDoc(postsRef, {
                     Name: filteredData.Name,
                     Email: filteredData.Email,
                     Post: post,
+                    ProfileURL: profileURL,
                 });
                 console.log(err);
             }
