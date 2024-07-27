@@ -20,6 +20,8 @@ import { Settings } from '@mui/icons-material';
 import Stack from '@mui/material/Stack';
 import MenuList from '@mui/material/MenuList';
 import Paper from '@mui/material/Paper';
+import { useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -49,6 +51,12 @@ export function ProfilePage() {
     const [imageURL, setImageURL] = React.useState("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw2FwlFM5yJSfJWzG794LVn_&ust=1722090728962000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCKiJ8IL2xIcDFQAAAAAdAAAAABAE");
     const [anchorE1, setAnchorE1] = React.useState(null);
     const open = Boolean(anchorE1);
+
+    const navigate = useNavigate();
+
+    const goToPage = (path) => {
+        navigate(path);
+    };
 
     const handleClick = (event) => {
         setAnchorE1(event.currentTarget);
@@ -130,9 +138,11 @@ export function ProfilePage() {
         onClose={handleClose}
         onClick={handleClose}
       >
-                    <MenuItem onClick={openHomePage}>
+                    <Link to="/Home">
+                    <MenuItem /*onClick={openHomePage}*/>
                         <Avatar /> HomePage
                     </MenuItem>
+                    </Link>
                     <MenuItem>
                         About AyushChat
                     </MenuItem>
@@ -148,7 +158,10 @@ export function ProfilePage() {
             </Toolbar>
         </AppBar>
         <br />
-        <div className='ProfilePage'>
+        <Routes>
+            <Route path="/" element={
+                <>
+                    <div className='ProfilePage'>
             <Typography variant='h5' align='center'>User Details</Typography>
             <br />
             <div className='UserDetails'>
@@ -170,7 +183,11 @@ export function ProfilePage() {
                         <Typography align='center' variant='body1'>{userDetails.Email}</Typography>
                     </div>
             </div>
-        </div>
+        </div>                
+          </>
+        } />
+        <Route path="/Home" element={<HomePage />} />
+        </Routes>
         </>
     );
 }

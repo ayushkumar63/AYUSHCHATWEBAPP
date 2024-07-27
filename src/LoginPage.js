@@ -12,19 +12,15 @@ import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import { Logout, Settings } from '@mui/icons-material';
 import { HomePage } from './HomePage';
+import { 
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    useNavigate   
+} from "react-router-dom";
+import { Switch as RouterSwitch } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-function openHomePage() {
-    //root.unmount();
-    return(
-        root.render(
-            <React.StrictMode>
-                <HomePage />
-            </React.StrictMode>
-        )
-    )
-};
 
 function HomeIcon(props) {
     return (
@@ -38,10 +34,17 @@ export function LoginPage() {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
 
+    const navigate = useNavigate();
+
+    const getToPath = (path) => {
+        navigate(path);
+    };
+
     const Login = async () => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            openHomePage();
+            getToPath('/Home');
+            //openHomePage();
         } catch(err) {
             console.log(err);
         }
@@ -56,7 +59,10 @@ export function LoginPage() {
             </Toolbar>
         </AppBar>
         <br />
-        <div className='LoginPage'>
+        <Routes>
+            <Route path="/" element={
+                <>
+                    <div className='LoginPage'>
             <Typography variant='h4' align='left'>Login</Typography>
             <Typography variant='body1' align='left' paragraph>Please login to your existing account.</Typography>
             <FormGroup className='LoginForm'>
@@ -70,6 +76,10 @@ export function LoginPage() {
             <br />
             <Button onClick={ Login } className='Button' variant='contained'>Login</Button>
         </div>
+                </>
+            } />
+            <Route path="/Home" element={<HomePage />} />
+        </Routes>
         </>
     );
 }

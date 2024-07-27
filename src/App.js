@@ -6,10 +6,18 @@ import { brown, orange, pink, purple, red, yellow } from '@mui/material/colors';
 import { auth, googleProvider } from "./config/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { HomePage } from './HomePage';
+import { ProfilePage } from './ProfilePage';
 import { LoginPage } from './LoginPage'; 
 import ReactDOM from 'react-dom/client';
 import { db } from './config/firebase';
 import { getDocs, doc, collection, addDoc, setDoc } from 'firebase/firestore';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link
+} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 function HomeIcon(props) {
   return (
@@ -52,6 +60,12 @@ export function App() {
 
   const userDetailsRef = collection(db, 'userDetails');
 
+  const navigate = useNavigate();
+
+  const goToPath = (path) => {
+    navigate(path);
+  }
+
   const createAccount = async () => {
     const data = {
         Name: name,
@@ -67,7 +81,8 @@ export function App() {
       } catch(err) {
         console.log(err);
       }
-      openHomePage();
+      goToPath('/Home');
+      //openHomePage();
     } catch(err) {
       console.log(err);
     }
@@ -76,7 +91,7 @@ export function App() {
   const signInWithGooglePopup = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      openHomePage();
+      //openHomePage();
     } catch(err) {
       console.log(err);
     }
@@ -84,7 +99,11 @@ export function App() {
 
   return (
     <>
-      <AppBar position="relative">
+      <div className="App">
+      <Routes>
+          <Route path="/" element={
+            <>
+        <AppBar position="relative">
         <Toolbar>
         <HomeIcon sx={{ fontSize: 40, color: yellow[500] }} />
           <Typography className="TypographyHeading" variant="h6">
@@ -93,7 +112,7 @@ export function App() {
         </Toolbar>
       </AppBar>
       <br />
-      <div className="App">
+      <div className='App1'>
       <Typography variant="h4" align="left">
         Create Account
       </Typography>
@@ -119,11 +138,20 @@ export function App() {
       <Button onClick={ createAccount } className='Button' variant="contained">Submit</Button>
       <br />
       <br />
-      <Button onClick={ openLoginPage } className='Button' color='secondary' variant="contained">Login</Button>
+      <Link to="/Login">
+      <Button /* onClick={ openLoginPage } */ className='Button' color='secondary' variant="contained">Login</Button>
+      </Link>
       <br />
       <br />
-      <Button onClick={ signInWithGooglePopup } className='Button' variant='contained' color='success'>Sign In With Google</Button>
-    </div>
+      <Button onClick={ signInWithGooglePopup } className='Button' variant='contained' color='success'>Sign In With Google</Button>        
+      </div>
+      </>
+          } />
+          <Route path="/Login" element={<LoginPage />} />
+          <Route path="/Home" element={<HomePage />} />
+          <Route path="/Profile" element={<ProfilePage />} />
+        </Routes>
+      </div>
     </>
   );
 }

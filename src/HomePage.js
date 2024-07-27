@@ -16,6 +16,9 @@ import { auth } from './config/firebase';
 import { signOut } from 'firebase/auth';
 import { App } from './App';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { BrowserRouter as Router, Link, Routes, Route, useNavigate } from 'react-router-dom';
+import { Switch as RouterSwitch } from "react-router-dom";
+import LoginPage from './LoginPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -52,12 +55,22 @@ function HomeIcon(props) {
 export function HomePage() {
     const [anchorE1, setAnchorE1] = React.useState(null);
     const open = Boolean(anchorE1);
+    const [numPosts, setNumPosts] = React.useState(0);
+    const [thePosts, setThePosts] = React.useState([]);
+    const [currentUser, setCurrentUser] = React.useState(null);
+    
+    const navigate = useNavigate();
+
+    if (!auth.currentUser) {
+        navigate('/Login');
+    } 
+
     const email = auth.currentUser.email;
+    
     const [post, setPost] = React.useState("");
     const postsRef = collection(db, 'Posts');
     const userDetailsDocRef = doc(db, 'userDetails', email);
-    const [numPosts, setNumPosts] = React.useState(0);
-    const [thePosts, setThePosts] = React.useState([]);
+
 
     const handleClick = (event) => {
         setAnchorE1(event.currentTarget);
@@ -71,7 +84,8 @@ export function HomePage() {
         try {
             await signOut(auth);
             console.log("Successfully logged out.")
-            openApp();
+            navigate('/Login');
+            //openApp();
         } catch(err) {
             console.log(err);
         }
@@ -164,9 +178,11 @@ export function HomePage() {
                     onClick={handleClose}
                     onClose={handleClose}
                 >
-                    <MenuItem onClick={openProfilePage}>
+                    <Link to="/Profile">
+                    <MenuItem /*onClick={openProfilePage}*/>
                         <Avatar /> Profile
                     </MenuItem>
+                    </Link>
                     <MenuItem>
                         About AyushChat
                     </MenuItem>
@@ -182,7 +198,10 @@ export function HomePage() {
             </Toolbar>
         </AppBar>
         <br />
-        <div className='HomePage'>
+        <Routes>
+            <Route path="/" element={
+                <>
+                <div className='HomePage'>
             <Typography variant='h5'>Welcome to AyushChat! This is Home Page.</Typography>
             <br />
             <Typography variant='h6'>Want to write a new post?</Typography>
@@ -204,6 +223,11 @@ export function HomePage() {
                 </div>
             ))}
         </div>
+                </>
+            } />
+            <Route path="/Login" element={<LoginPage />} />
+            <Route path="/Profile" element={<ProfilePage />} />
+        </Routes>
         </>
     );
 }
