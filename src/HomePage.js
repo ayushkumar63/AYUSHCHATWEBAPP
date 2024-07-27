@@ -104,20 +104,22 @@ export function HomePage() {
             await updateDoc(userDetailsDocRef, {
                 numberOfPosts: filteredData.numberOfPosts + 1,
             });
-            const profileURL = await getDownloadURL(ref(storage, 'ProfilePicture/' + filteredData.Email + '/profilepicture.png'));
-            if (!profileURL) {
+
+            try {
+                const profileURL = await getDownloadURL(ref(storage, 'ProfilePicture/' + filteredData.Email + '/profilepicture.png'));
                 await addDoc(postsRef, {
                     Name: filteredData.Name,
                     Email: filteredData.Email,
                     Post: post,
                 });
-            } else {
+            } catch(err) {
                 await addDoc(postsRef, {
                     Name: filteredData.Name,
                     Email: filteredData.Email,
                     Post: post,
                     ProfileURL: profileURL,
                 });
+                console.log(err);
             }
     
             console.log("Posted Successfully");
