@@ -81,7 +81,7 @@ export function HomePage() {
             const getPosts = async () => {
                 try {
                     const posts = await getDocs(postsRef);
-                    setThePosts(posts.docs);         
+                    setThePosts(posts.docs.sort().reverse());         
                     /*const filteredData = posts.docs.map((doc) => {
                         console.log(doc.data());
                     })*/
@@ -107,25 +107,47 @@ export function HomePage() {
             await updateDoc(userDetailsDocRef, {
                 numberOfPosts: filteredData.numberOfPosts + 1,
             });
-
+            const numPostsRef = doc(db, "OtherDocuments", "numPosts");
+            const numPostsDoc = await getDoc(numPostsRef);
+            const numPosts = numPostsDoc.data().Number;
             try {
                 const profileURL = await getDownloadURL(ref(storage, 'ProfilePicture/' + filteredData.Email + '/profilepicture.png'));
-                await addDoc(postsRef, {
+                const newNumber = numPosts + 1;
+                /*await addDoc(postsRef, {
                     Name: filteredData.Name,
                     Email: filteredData.Email,
                     Post: post,
                     ProfileURL: profileURL,
+                });*/
+                await setDoc(doc(db, "Posts", "Post" + newNumber), {
+                    Name: filteredData.Name,
+                    Email: filteredData.Email,
+                    Post: post,
+                    ProfileURL: profileURL,
+                });
+                await updateDoc(numPostsRef, {
+                    Number: numPosts + 1,
                 });
             } catch(err) {
                 const filesFolderRef = ref(storage, 'ProfilePicture/' + email + '/profilepicture.png');
                 const fileUploadDefault = './config/DefaultProfilePicture.png';
                 await uploadBytes(filesFolderRef, fileUploadDefault);
                 const profileURL = await getDownloadURL(ref(storage, 'ProfilePicture/' + email + '/profilepicture.png'));
-                await addDoc(postsRef, {
+                const newNumber = numPosts + 1;
+                /*await addDoc(postsRef, {
                     Name: filteredData.Name,
                     Email: filteredData.Email,
                     Post: post,
                     ProfileURL: profileURL,
+                });*/
+                await setDoc(doc(db, "Posts", "Post" + newNumber), {
+                    Name: filteredData.Name,
+                    Email: filteredData.Email,
+                    Post: post,
+                    ProfileURL: profileURL,
+                });
+                await updateDoc(numPostsRef, {
+                    Number: numPosts + 1,
                 });
                 console.log(err);
             }
@@ -134,7 +156,7 @@ export function HomePage() {
             const getPosts = async () => {
                 try {
                     const posts = await getDocs(postsRef);
-                    setThePosts(posts.docs);         
+                    setThePosts(posts.docs.sort().reverse());         
                     /*const filteredData = posts.docs.map((doc) => {
                         console.log(doc.data());
                     })*/
