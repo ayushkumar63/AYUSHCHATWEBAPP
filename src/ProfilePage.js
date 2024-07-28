@@ -123,22 +123,9 @@ export function ProfilePage() {
         <>
         <AppBar position='relative'>
             <Toolbar>
-                <IconButton 
-                    onClick={handleClick}
-                    aria-controls={open ? 'menu' : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
-                >
-                    <Avatar sx={{ width: 60, height: 60 }}>Menu</Avatar>
-                </IconButton>
                 <br />
-    <Menu
-        anchorEl={anchorE1}
-        id="menu"
-        open={open}
-        onClose={handleClose}
-        onClick={handleClose}
-      >
+                <HomeIcon sx={{ color: yellow[500], fontSize: 40 }} />
+                <Typography variant='h6'>Profile Page</Typography>
                     <MenuItem onClick={openHomePage}>
                         <OtherHousesIcon /> HomePage
                     </MenuItem>
@@ -154,9 +141,6 @@ export function ProfilePage() {
                     <MenuItem onClick={logOut}>
                         <Logout /> Sign Out
                     </MenuItem>
-                </Menu>
-                <HomeIcon sx={{ color: yellow[500], fontSize: 40 }} />
-                <Typography variant='h6'>Profile Page</Typography>
             </Toolbar>
         </AppBar>
         <br />

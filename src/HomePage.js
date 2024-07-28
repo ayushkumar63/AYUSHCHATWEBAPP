@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom/client';
 import Avatar from '@mui/material/Avatar';
 import ImageIcon from '@mui/icons-material/Image';
 import Menu from '@mui/material/Menu';
+import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import { Logout, Settings } from '@mui/icons-material';
@@ -174,21 +175,8 @@ export function HomePage() {
         <>
         <AppBar position='relative'>
             <Toolbar>
-                <IconButton 
-                    onClick={handleClick}
-                    aria-controls={open ? 'menu' : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
-                >
-                    <Avatar sx={{ width: 60, height: 60 }}>Menu</Avatar>
-                </IconButton>
-                <Menu
-                    anchorE1={anchorE1}
-                    open={open}
-                    id="menu"
-                    onClick={handleClose}
-                    onClose={handleClose}
-                >
+                <HomeIcon sx={{ fontSize: 40, color: yellow[500] }} />
+                 <Typography variant='h6'>Home Page</Typography>
                     <MenuItem onClick={openProfilePage}>
                         <Avatar /> Profile
                     </MenuItem>
@@ -204,9 +192,6 @@ export function HomePage() {
                     <MenuItem onClick={logOut}>
                         <Logout /> Sign Out
                     </MenuItem>
-                </Menu>
-                <HomeIcon sx={{ fontSize: 40, color: yellow[500] }} />
-                <Typography variant='h6'>Home Page</Typography>
             </Toolbar>
         </AppBar>
         <br />
