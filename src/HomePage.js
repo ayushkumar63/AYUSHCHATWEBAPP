@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './App.css';
+import { AyushBot } from './AyushBot';
 import SvgIcon from '@mui/material/SvgIcon';
 import OtherHousesIcon from '@mui/icons-material/OtherHouses';
 import { AppBar, Typography, Toolbar, ImageList, ImageListItem, Switch, Button, Rating, Checkbox, FormControlLabel, FormGroup, TextField, CssBaseline } from '@mui/material';
@@ -100,6 +101,10 @@ export function HomePage() {
         navigate("/Images");
     }
 
+    const openAyushBot = () => {
+        navigate('/AyushBot');
+    };
+
     const uploadPost = async () => {
         try {
             const details = await getDoc(userDetailsDocRef);
@@ -189,6 +194,9 @@ export function HomePage() {
                     <MenuItem onClick={openImages}>
                         <ImageIcon />Images
                     </MenuItem>
+                    <MenuItem onClick={openAyushBot}>
+                        AyushBot
+                    </MenuItem>
                     <MenuItem onClick={logOut}>
                         <Logout /> Sign Out
                     </MenuItem>
@@ -223,6 +231,7 @@ export function HomePage() {
             } />
             <Route path="/Login" element={<LoginPage />} />
             <Route path="/Profile" element={<ProfilePage />} />
+            <Route path='/AyushBot' element={<AyushBot />} />
             <Route path="/Images" element={<Images />} />
         </Routes>
         </>

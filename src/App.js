@@ -19,6 +19,7 @@ import {
 } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { Images } from './Images';
+import AyushBot from './AyushBot';
 
 function HomeIcon(props) {
   return (
@@ -152,6 +153,7 @@ export function App() {
           <Route path="/Home" element={<HomePage />} />
           <Route path="/Profile" element={<ProfilePage />} />
           <Route path="/Images" element={<Images />} />
+          <Route path='/AyushBot' element={<AyushBot />} />
         </Routes>
       </div>
     </>

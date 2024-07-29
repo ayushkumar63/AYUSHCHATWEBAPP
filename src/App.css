@@ -7,6 +7,10 @@
   margin-left: 20px;
 }
 
+.AyushBot {
+  margin-left: 20px;
+}
+
 .UserDetails {
   text-align: center;
 }
@@ -39,7 +43,7 @@
 }
 
 body {
-  background-color: orange;
+  background-color: #bbfffd;
 }
 
 .div1 {
@@ -49,6 +53,16 @@ body {
 .TextInput {
   font-size: medium;
   width: 70%;
+}
+
+.AskButton {
+  height: 55px;
+}
+
+.AyushBotTextInput {
+  font-size: medium;
+  width: 30%;
+  background-color: white;
 }
 
 .App-logo {

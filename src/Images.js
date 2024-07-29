@@ -3,6 +3,7 @@ import { AppBar, Typography, Toolbar, ImageList, ImageListItem, Switch, Button, 
 import * as React from 'react';  
 import SvgIcon from '@mui/material/SvgIcon';
 import { storage } from './config/firebase';
+import { AyushBot } from './AyushBot';
 import OtherHousesIcon from '@mui/icons-material/OtherHouses';
 import { brown, orange, pink, purple, red, yellow } from '@mui/material/colors';
 import { auth, googleProvider } from "./config/firebase";
@@ -26,6 +27,7 @@ import {
 } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { uploadBytes, ref, getDownloadURL } from 'firebase/storage';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
 function HomeIcon(props) {
     return (
@@ -53,6 +55,10 @@ export function Images() {
         navigate(path);
     }
 
+    const openAyushBot = () => {
+        navigate('/AyushBot');
+    };
+
     const openHomePage = () => {
         goToPage('/Home');
     }
@@ -73,12 +79,15 @@ export function Images() {
             const userDetailsRef = doc(db, "userDetails", email);
             const userDetaisDoc = await getDoc(userDetailsRef);
             const filteredData = userDetaisDoc.data();
+            const number1 = number + 1;
             const url = await getDownloadURL(ref(storage, "ImagePosts/ImagePost" + number + ".png"));
-            const imagePostDetailsRef = collection(db, "imagePostDetails");
-            await addDoc(imagePostDetailsRef, {
+            const imagePostDetailsRef = doc(db, "imagePostDetails", "ImagePost" + number1);
+            await setDoc(imagePostDetailsRef, {
+                FileName: "ImagePost" + number1,
                 Name: filteredData.Name,
                 Email: filteredData.Email,
                 ImagePostURL: url,
+                NumLikes: 0,
             });
             const getImagePostDetails = async () => {
                 try {
@@ -92,6 +101,14 @@ export function Images() {
             getImagePostDetails();
         } catch(err) {
             console.log(err);
+        }
+    };
+
+    const doLike = async (fileName) => {
+        try {
+
+        } catch(err) {
+            
         }
     };
 
@@ -139,6 +156,9 @@ export function Images() {
                     <MenuItem onClick={openHomePage}>
                         <OtherHousesIcon /> Home Page
                     </MenuItem>
+                    <MenuItem onClick={openAyushBot}>
+                        AyushBot   
+                    </MenuItem>
                     <MenuItem onClick={logOut}>
                         <Logout /> Sign Out
                     </MenuItem>
@@ -164,6 +184,8 @@ export function Images() {
                                 <Typography variant='h6'>Name: {singleDoc.data().Name}</Typography>
                                 <br />
                                 <img className='PostImage' src={singleDoc.data().ImagePostURL} />
+                                <br /><ThumbUpAltIcon />
+                                <b><p>Likes: </p></b><p>{singleDoc.data().NumLikes}</p>
                                 <hr />
                             </div>
                         ))}
@@ -173,6 +195,7 @@ export function Images() {
            <Route path='/Home' element={<HomePage />} />
            <Route path='/Login' element={<LoginPage />} />
            <Route path='/Profile' element={<ProfilePage />} />
+           <Route path='/AyushBot' element={<AyushBot />} />
         </Routes>
         </>
     );

@@ -1,6 +1,7 @@
 import './App.css';
 import { AppBar, Typography, Toolbar, ImageList, ImageListItem, Switch, Button, Rating, Checkbox, FormControlLabel, FormGroup, TextField, CssBaseline, Avatar } from '@mui/material';
 import * as React from 'react';
+import { AyushBot } from './AyushBot';
 import SvgIcon from '@mui/material/SvgIcon';
 import ImageIcon from '@mui/icons-material/Image';
 import OtherHousesIcon from '@mui/icons-material/OtherHouses';
@@ -49,6 +50,10 @@ export function ProfilePage() {
 
     const goToPage = (path) => {
         navigate(path);
+    };
+
+    const openAyushBot = () => {
+        navigate('/AyushBot');
     };
 
     const openHomePage = () => {
@@ -138,6 +143,9 @@ export function ProfilePage() {
                     <MenuItem>
                         <Settings /> Settings
                     </MenuItem>
+                    <MenuItem onClick={openAyushBot}>
+                        AyushBot
+                    </MenuItem>
                     <MenuItem onClick={logOut}>
                         <Logout /> Sign Out
                     </MenuItem>
@@ -173,6 +181,7 @@ export function ProfilePage() {
           </>
         } />
         <Route path="/Home" element={<HomePage />} />
+        <Route path='/AyushBot' element={<AyushBot />} />
         <Route path="/Images" element={<Images />} />
         </Routes>
         </>
