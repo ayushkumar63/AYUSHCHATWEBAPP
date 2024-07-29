@@ -1,9 +1,10 @@
 import './App.css';
-import { AppBar, Typography, Toolbar, ImageList, ImageListItem, Switch, Button, Rating, Checkbox, FormControlLabel, FormGroup, TextField, CssBaseline } from '@mui/material';
+import { AppBar, Typography, Toolbar, ImageList, ImageListItem, Switch, Button, Rating, Checkbox, FormControlLabel, FormGroup, TextField, CssBaseline, CardHeader } from '@mui/material';
 import * as React from 'react';  
 import SvgIcon from '@mui/material/SvgIcon';
 import { storage } from './config/firebase';
 import { AyushBot } from './AyushBot';
+import { Card, CardMedia, CardContent } from '@mui/material';
 import OtherHousesIcon from '@mui/icons-material/OtherHouses';
 import { brown, orange, pink, purple, red, yellow } from '@mui/material/colors';
 import { auth, googleProvider } from "./config/firebase";
@@ -181,12 +182,23 @@ export function Images() {
                         <br />
                         {theImagePostDetails.map((singleDoc) => (
                             <div>
-                                <Typography variant='h6'>Name: {singleDoc.data().Name}</Typography>
-                                <br />
-                                <img className='PostImage' src={singleDoc.data().ImagePostURL} />
-                                <br /><ThumbUpAltIcon />
-                                <b><p>Likes: </p></b><p>{singleDoc.data().NumLikes}</p>
+                                <Card sx={{maxWidth: 345}}>
+                                    <CardHeader 
+                                        title={singleDoc.data().Name}
+                                    />
+                                    <CardMedia 
+                                        component="img"
+                                        image={singleDoc.data().ImagePostURL}
+                                        width="275"
+                                        height="250"
+                                    />
+                                    <CardContent>
+                                        <ThumbUpAltIcon />
+                                        <b><p>Likes: </p></b><p>{singleDoc.data().NumLikes}</p>
+                                    </CardContent>
+                                </Card>
                                 <hr />
+                                <br />
                             </div>
                         ))}
                     </div>

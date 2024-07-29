@@ -27,15 +27,16 @@ import { Images } from './Images';
 import { HomePage } from './HomePage';
 
 export function AyushBot() {
-    const genAI = new GoogleGenerativeAI("AIzaSyBwNZ6OZtChNEclvjc464GAqi6TtQBRHqE");
     const [query, setQuery] = React.useState("");
     const [reply, setReply] = React.useState("");
+    const genAI = new GoogleGenerativeAI("AIzaSyBwNZ6OZtChNEclvjc464GAqi6TtQBRHqE");
+    const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"});
+    const chat = model.startChat({ history: [] });
 
     const generateReply = async () => {
         try {
-            const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"});
             const prompt = query;
-            const result = await model.generateContent(prompt);
+            const result = await chat.sendMessage(prompt);
             const response = result.response;
             const text = response.text();
             setReply(text);
