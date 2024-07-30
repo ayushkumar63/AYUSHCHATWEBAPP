@@ -145,7 +145,6 @@ export function App() {
       </Link>
       <br />
       <br />
-      <Button onClick={ signInWithGooglePopup } className='Button' variant='contained' color='success'>Sign In With Google</Button>        
       </div>
       </>
           } />

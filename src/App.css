@@ -21,6 +21,7 @@
 }
 
 .ProfilePictureImage {
+  margin-right: 16px;
   width: 125px;
   height: 100px;
 }
@@ -48,6 +49,11 @@ body {
 
 .div1 {
   background-color: pink;
+}
+
+.postContainer {
+  display: flex;
+  align-items: flex-start;
 }
 
 .TextInput {

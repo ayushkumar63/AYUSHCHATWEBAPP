@@ -7,6 +7,7 @@ import { AppBar, Typography, Toolbar, ImageList, ImageListItem, Switch, Button, 
 import { brown, orange, pink, purple, red, yellow } from '@mui/material/colors';
 import ReactDOM from 'react-dom/client';
 import Avatar from '@mui/material/Avatar';
+import { orderBy, query } from 'firebase/firestore';
 import ImageIcon from '@mui/icons-material/Image';
 import Menu from '@mui/material/Menu';
 import MenuList from '@mui/material/MenuList';
@@ -24,6 +25,7 @@ import { BrowserRouter as Router, Link, Routes, Route, useNavigate } from 'react
 import { Switch as RouterSwitch } from "react-router-dom";
 import LoginPage from './LoginPage';
 import { Images } from './Images';
+import { Card, CardHeader, CardContent, CardMedia } from '@mui/material';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -82,8 +84,9 @@ export function HomePage() {
         try {
             const getPosts = async () => {
                 try {
-                    const posts = await getDocs(postsRef);
-                    setThePosts(posts.docs.sort().reverse());         
+                    const postsQuery = query(postsRef, orderBy('timestamp', 'desc'));
+                    const posts = await getDocs(postsQuery);
+                    setThePosts(posts.docs);         
                     /*const filteredData = posts.docs.map((doc) => {
                         console.log(doc.data());
                     })*/
@@ -130,6 +133,7 @@ export function HomePage() {
                     Email: filteredData.Email,
                     Post: post,
                     ProfileURL: profileURL,
+                    timestamp: new Date(),
                 });
                 await updateDoc(numPostsRef, {
                     Number: numPosts + 1,
@@ -151,6 +155,7 @@ export function HomePage() {
                     Email: filteredData.Email,
                     Post: post,
                     ProfileURL: profileURL,
+                    timestamp: new Date(),
                 });
                 await updateDoc(numPostsRef, {
                     Number: numPosts + 1,
@@ -161,8 +166,9 @@ export function HomePage() {
             console.log("Posted Successfully");
             const getPosts = async () => {
                 try {
-                    const posts = await getDocs(postsRef);
-                    setThePosts(posts.docs.sort().reverse());         
+                    const postsQuery = query(postsRef, orderBy('timestamp', 'desc'));
+                    const posts = await getDocs(postsQuery);
+                    setThePosts(posts.docs);         
                     /*const filteredData = posts.docs.map((doc) => {
                         console.log(doc.data());
                     })*/
@@ -221,8 +227,14 @@ export function HomePage() {
             <br />
             {thePosts.map((doc) => (
                 <div>
-                    <img className='ProfilePictureImage' src={doc.data().ProfileURL} />
-                    <Typography variant='h6'><b>{doc.data().Name}</b>: {doc.data().Post}</Typography>
+                    <div className='postContainer'>
+                        <img className='ProfilePictureImage' src={doc.data().ProfileURL} />
+                        <Card sx={{ backgroundColor: '#FFC0CB', maxWidth: 750 }}>
+                            <CardContent>
+                                <Typography variant='h6'><b>{doc.data().Name}</b>: {doc.data().Post}</Typography>
+                            </CardContent>
+                        </Card>
+                    </div>
                     <hr />
                 </div>
             ))}
