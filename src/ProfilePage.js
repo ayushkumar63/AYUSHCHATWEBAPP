@@ -126,7 +126,7 @@ export function ProfilePage() {
 
     return(
         <>
-        <AppBar position='relative'>
+        <AppBar sx={{ maxWidth: 4500 }} position='relative'>
             <Toolbar>
                 <br />
                 <HomeIcon sx={{ color: yellow[500], fontSize: 40 }} />

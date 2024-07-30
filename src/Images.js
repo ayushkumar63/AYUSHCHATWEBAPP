@@ -141,7 +141,7 @@ export function Images() {
 
     return(
         <>
-        <AppBar position='relative'>
+        <AppBar sx={{ maxWidth: 4500 }} position='relative'>
             <Toolbar>
                 <HomeIcon sx={{ color: yellow[500], fontSize: 40}} />
                 <Typography variant='h6'>Images</Typography>

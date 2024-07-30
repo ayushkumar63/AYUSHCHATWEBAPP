@@ -82,7 +82,7 @@ export function AyushBot() {
 
     return(
         <>
-        <AppBar position='relative'>
+        <AppBar sx={{ maxWidth: 4500 }} position='relative'>
             <Toolbar>
             <HomeIcon sx={{ fontSize: 40, color: yellow[500] }} />
             <Typography variant='h6'>AyushBot</Typography>

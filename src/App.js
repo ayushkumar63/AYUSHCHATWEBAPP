@@ -105,7 +105,7 @@ export function App() {
       <Routes>
           <Route path="/" element={
             <>
-        <AppBar position="relative">
+        <AppBar sx={{ maxWidth: 4500 }} position="relative">
         <Toolbar>
         <HomeIcon sx={{ fontSize: 40, color: yellow[500] }} />
           <Typography className="TypographyHeading" variant="h6">
