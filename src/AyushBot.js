@@ -25,6 +25,8 @@ import { Switch as RouterSwitch } from "react-router-dom";
 import LoginPage from './LoginPage';
 import { Images } from './Images';
 import { HomePage } from './HomePage';
+import { Card, CardMedia, CardHeader, CardContent } from '@mui/material';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
 
 export function AyushBot() {
     const [query, setQuery] = React.useState("");
@@ -40,6 +42,8 @@ export function AyushBot() {
             const response = result.response;
             const text = response.text();
             setReply(text);
+            const area = document.getElementById('replyWholeArea');
+            area.style.display = 'flex';
         } catch(err) {
             console.log(err);
         }
@@ -107,15 +111,24 @@ export function AyushBot() {
                 <Route path='/' element={
                     <>
                         <div className='AyushBot'>
-                            <Typography variant='h5'>This is AyushBot (Created using Gemini API)</Typography>
+                            <Typography variant='h4'>This is AyushBot (Created using Gemini API)</Typography>
                             <br />
                             <TextField onChange={(e) => setQuery(e.target.value)} className='AyushBotTextInput' label='Ask me anything....' variant='outlined' />
                             <Button onClick={generateReply} className='AskButton' variant='contained' color='secondary'>Ask</Button>
                             <br />
                             <br />
-                            <Typography variant='h5'>Reply</Typography>
+                            <Typography variant='h5'><b>Reply</b></Typography>
                             <br />
-                            <Typography variant='body1'>{reply}</Typography>
+                            <div id='replyWholeArea' className='replyWholeArea'>
+                                <SmartToyIcon sx={{ fontSize: 40 }} />
+                                <Card sx={{ backgroundColor: "#FFD580", maxWidth: 750, marginLeft: "15px"}}>
+                                    <cardContent>
+                                        <div className='replyArea'>
+                                            <Typography variant='h6'>{reply}</Typography>
+                                        </div>
+                                    </cardContent>
+                                </Card>
+                            </div>
                         </div>
                     </>
                 } />

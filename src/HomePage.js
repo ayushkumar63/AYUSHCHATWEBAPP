@@ -43,6 +43,7 @@ export function HomePage() {
     const [numPosts, setNumPosts] = React.useState(0);
     const [thePosts, setThePosts] = React.useState([]);
     const [currentUser, setCurrentUser] = React.useState(null);
+    const postField = document.getElementById('postField');
     
     const navigate = useNavigate();
 
@@ -138,6 +139,8 @@ export function HomePage() {
                 await updateDoc(numPostsRef, {
                     Number: numPosts + 1,
                 });
+                //postField.value = "";
+                postField.label = "New Post";
             } catch(err) {
                 const filesFolderRef = ref(storage, 'ProfilePicture/' + email + '/profilepicture.png');
                 const fileUploadDefault = './config/DefaultProfilePicture.png';
@@ -160,6 +163,8 @@ export function HomePage() {
                 await updateDoc(numPostsRef, {
                     Number: numPosts + 1,
                 });
+                //postField.value = "";
+                postField.label = "New Post";
                 console.log(err);
             }
     
@@ -217,7 +222,7 @@ export function HomePage() {
             <br />
             <Typography variant='h6'>Want to write a new post?</Typography>
             <br />
-            <TextField onChange={(e) => setPost(e.target.value)} className='PostField' variant='outlined' label='New Post' multiline />
+            <TextField id='postField' onChange={(e) => setPost(e.target.value)} className='PostField' variant='outlined' label='New Post' multiline />
             <br />
             <br />
             <Button onClick={(uploadPost)} className='Button' variant='contained' color='secondary'>Post</Button>
