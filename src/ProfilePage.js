@@ -26,6 +26,7 @@ import Paper from '@mui/material/Paper';
 import { useNavigate } from 'react-router-dom';
 import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 import { Images } from './Images';
+import { Card, CardMedia, CardHeader, CardContent } from '@mui/material'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -71,6 +72,7 @@ export function ProfilePage() {
     const logOut = async () => {
         try {
             await signOut(auth);
+            navigate('/Login');
         } catch(err) {
             console.log(err)
         }
@@ -156,10 +158,11 @@ export function ProfilePage() {
             <Route path="/" element={
                 <>
                     <div className='ProfilePage'>
-            <Typography variant='h5' align='center'>User Details</Typography>
             <br />
             <div className='UserDetails'>
                     <div>
+                        <Typography variant='h5' className='userDetailsHeading'><b>User Details</b></Typography>
+                        <br />
                         <img className='ProfilePictureImage' src={imageURL} />
                         <br />
                         <input id='fileInput' onChange={(e) => setFileUpload(e.target.files[0])} type='file' />

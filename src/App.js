@@ -20,6 +20,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { Images } from './Images';
 import AyushBot from './AyushBot';
+import { Card, CardContent, CarMedia, CardHeader} from "@mui/material";
 
 function HomeIcon(props) {
   return (
@@ -109,42 +110,56 @@ export function App() {
         <Toolbar>
         <HomeIcon sx={{ fontSize: 40, color: yellow[500] }} />
           <Typography className="TypographyHeading" variant="h6">
-            AyushChat
+            <b>AyushChat</b>
           </Typography>
         </Toolbar>
       </AppBar>
       <br />
       <div className='App1'>
-      <Typography variant="h4" align="left">
-        Create Account
-      </Typography>
-      <br />
-      <Typography variant="body1" align="left" paragraph>
-        Please create a new account if you don't already have one, else click on login.
-        You can also login through Google.
-      </Typography>
-      <FormGroup className = "genderForm">
-        <br />
-        <TextField onChange={(e) => setName(e.target.value)} className="TextInput" label="Name" variant="outlined" />
-        <br />
-        <TextField onChange={(e) => setEmail(e.target.value)} className="TextInput" label="Email" variant="outlined" />
-        <br />
-        <TextField onChange={(e) => setPassword(e.target.value)} className="TextInput" label="Password" type="password" variant="outlined" />
-        <FormControlLabel /*onClick={setGender('Male')}*/ control = {<Checkbox color="secondary" />} label = "Male" />
-        <FormControlLabel /*onClick={setGender('Female')}*/ control = {<Checkbox color="success"/>} label = "Female" />
-        <FormControlLabel /*onClick={setGender('Transgender')}*/ control = {<Checkbox color="default"/>} label = "Transgender" />
-        <FormControlLabel checked = {notifyBool} onChange={(e) => setNotifyBool(e.target.checked)} control = {<Switch />} className='switchText' label="Want to receive email notifications from AyushChat?" />
-      </FormGroup>
-      <br />
-      <br />
-      <Button onClick={ createAccount } className='Button' variant="contained">Submit</Button>
-      <br />
-      <br />
-      <Link to="/Login">
-      <Button /* onClick={ openLoginPage } */ className='Button' color='secondary' variant="contained">Login</Button>
-      </Link>
-      <br />
-      <br />
+        <Card sx={{ maxWidth: 700, maxHeight: 700 }}>
+          <CardContent>
+            <Typography variant="h4" align="left">
+              <b>Create Account</b>
+            </Typography>
+            <br />
+            <Typography variant="body1" align="left" paragraph>
+              Please create a new account if you don't already have one, else click on login.
+              You can also login through Google.
+            </Typography>
+            <FormGroup className = "registerForm">
+              <TextField onChange={(e) => setName(e.target.value)} className="TextInput" label="Name" variant="outlined" />
+              <br />
+              <TextField onChange={(e) => setEmail(e.target.value)} className="TextInput" label="Email" variant="outlined" />
+              <br />
+              <TextField onChange={(e) => setPassword(e.target.value)} className="TextInput" label="Password" type="password" variant="outlined" />
+              <div className='genderForm'>
+              <FormControlLabel /*onClick={setGender('Male')}*/ control = {<Checkbox color="secondary" />} label = "Male" />
+              <FormControlLabel /*onClick={setGender('Female')}*/ control = {<Checkbox color="success"/>} label = "Female" />
+              <FormControlLabel /*onClick={setGender('Transgender')}*/ control = {<Checkbox color="default"/>} label = "Transgender" />
+              </div>
+              <FormControlLabel checked = {notifyBool} onChange={(e) => setNotifyBool(e.target.checked)} control = {<Switch />} className='switchText' label="Want to receive email notifications from AyushChat?" />
+              </FormGroup>
+              <br />
+              <Button onClick={ createAccount } className='Button' variant="contained">Submit</Button>
+              <br />
+              <br />
+              <Link to="/Login">
+              <Button /* onClick={ openLoginPage } */ className='Button' color='secondary' variant="contained">Login</Button>
+              </Link>
+              <br />
+          </CardContent>
+        </Card>
+        <Card sx={{ backgroundColor: "#a8ff80", marginLeft: 10, maxWidth: 800, marginTop: 10}}>
+          <CardContent>
+            <Typography variant='h5' sx={{ fontSize: 30 }} color={"#6b0fcd"}><b>Features of AyushChat</b></Typography>
+            <ul className='featureList'>
+              <li>Text Posts</li>
+              <li>Image Posts</li>
+              <li>Ayush Bot - a chatbot made using Google's Gemini API</li>
+            </ul>
+            <Typography variant='h6' color={"#3d45bf"}>More features are to come. Stay attuned!</Typography>
+          </CardContent>
+        </Card>
       </div>
       </>
           } />

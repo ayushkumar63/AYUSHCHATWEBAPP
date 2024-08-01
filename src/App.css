@@ -1,10 +1,18 @@
 .App1 {
   text-align: center;
   margin-left: 20px;
+  display: flex;
+  align-items: flex-start;
 }
 
 .Images {
   margin-left: 20px;
+}
+
+.featureList {
+  text-align: left;
+  color: #dc432e;
+  font-size: large;
 }
 
 .AyushBot {
@@ -13,6 +21,7 @@
 
 .UserDetails {
   text-align: center;
+  color: white;
 }
 
 .PostField {
@@ -20,8 +29,12 @@
   width: 600px;
 }
 
+.UserDetailsHeading {
+  margin-left: 300px;
+}
+
 .ProfilePictureImage {
-  margin-right: 16px;
+  margin-right: 26px;
   width: 125px;
   height: 100px;
 }
@@ -44,11 +57,16 @@
 }
 
 body {
-  background-color: #bbfffd;
+  background-color: #36454F;
 }
 
 .div1 {
   background-color: pink;
+}
+
+.genderForm {
+  display: flex;
+  align-items: flex-start;
 }
 
 .postContainer {

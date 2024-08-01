@@ -218,9 +218,9 @@ export function HomePage() {
             <Route path="/" element={
                 <>
                 <div className='HomePage'>
-            <Typography variant='h5'>Welcome to AyushChat! This is Home Page.</Typography>
+            <Typography variant='h5' color={"#FFBF00"}>Welcome to AyushChat! This is Home Page.</Typography>
             <br />
-            <Typography variant='h6'>Want to write a new post?</Typography>
+            <Typography variant='h6' color={"#b9f928"}>Want to write a new post?</Typography>
             <br />
             <TextField id='postField' onChange={(e) => setPost(e.target.value)} className='PostField' variant='outlined' label='New Post' multiline />
             <br />
@@ -228,7 +228,7 @@ export function HomePage() {
             <Button onClick={(uploadPost)} className='Button' variant='contained' color='secondary'>Post</Button>
             <br />
             <br />
-            <Typography variant='h4'>Posts</Typography>
+            <Typography variant='h4' color={"#f8f835"}><b>Posts</b></Typography>
             <br />
             {thePosts.map((doc) => (
                 <div>

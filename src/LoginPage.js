@@ -19,6 +19,7 @@ import {
     useNavigate   
 } from "react-router-dom";
 import { Switch as RouterSwitch } from "react-router-dom";
+import { Card, CardHeader, CardMedia, CardContent } from "@mui/material";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -63,19 +64,23 @@ export function LoginPage() {
             <Route path="/" element={
                 <>
                     <div className='LoginPage'>
-            <Typography variant='h4' align='left'>Login</Typography>
-            <Typography variant='body1' align='left' paragraph>Please login to your existing account.</Typography>
-            <FormGroup className='LoginForm'>
-                <br />
-                <TextField onChange={(e) => setEmail(e.target.value)} className='TextInput' variant='outlined' label='Email' />
-                <br />
-                <br />
-                <TextField type='password' onChange={(e) => setPassword(e.target.value)} className='TextInput' variant='outlined' label='Password' />
-            </FormGroup>
-            <br />
-            <br />
-            <Button onClick={ Login } className='Button' variant='contained'>Login</Button>
-        </div>
+                        <Card sx={{ maxWidth: 1000 }}>
+                            <CardContent>
+                                <Typography variant='h4' align='left'><b>Login</b></Typography>
+                                <Typography variant='body1' align='left' paragraph>Please login to your existing account.</Typography>
+                                <FormGroup className='LoginForm'>
+                                <br />
+                                <TextField onChange={(e) => setEmail(e.target.value)} className='TextInput' variant='outlined' label='Email' />
+                                <br />
+                                <br />
+                                <TextField type='password' onChange={(e) => setPassword(e.target.value)} className='TextInput' variant='outlined' label='Password' />
+                                </FormGroup>
+                                <br />
+                                <br />
+                                <Button onClick={ Login } className='Button' variant='contained'>Login</Button>
+                            </CardContent>
+                        </Card>
+                    </div>
                 </>
             } />
             <Route path="/Home" element={<HomePage />} />

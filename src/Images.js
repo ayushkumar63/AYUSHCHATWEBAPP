@@ -170,7 +170,7 @@ export function Images() {
                 <>
                     <div className='Images'>
                         <br />
-                        <Typography variant='h4'>Images</Typography>
+                        <Typography variant='h4' color={"yellow"}><b>Images</b></Typography>
                         <br />
                         <input onChange={(e) => setUploadFile(e.target.files[0])} type='file' />
                         <br />
@@ -178,7 +178,7 @@ export function Images() {
                         <Button onClick={uploadImage} className='Button' variant='contained' color='success'>Post an Image</Button>
                         <br />
                         <br />
-                        <Typography variant='h5'>Everybody's Posts Till Now</Typography>
+                        <Typography variant='h5' color={"#ffc61c"}>Everybody's Posts Till Now</Typography>
                         <br />
                         {theImagePostDetails.map((singleDoc) => (
                             <div>

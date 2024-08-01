@@ -111,16 +111,16 @@ export function AyushBot() {
                 <Route path='/' element={
                     <>
                         <div className='AyushBot'>
-                            <Typography variant='h4'>This is AyushBot (Created using Gemini API)</Typography>
+                            <Typography variant='h4' color={"white"}>This is AyushBot (Created using Gemini API)</Typography>
                             <br />
                             <TextField onChange={(e) => setQuery(e.target.value)} className='AyushBotTextInput' label='Ask me anything....' variant='outlined' />
                             <Button onClick={generateReply} className='AskButton' variant='contained' color='secondary'>Ask</Button>
                             <br />
                             <br />
-                            <Typography variant='h5'><b>Reply</b></Typography>
+                            <Typography variant='h5' sx={{ fontSize: 30 }} color={"yellow"}><b>Reply</b></Typography>
                             <br />
                             <div id='replyWholeArea' className='replyWholeArea'>
-                                <SmartToyIcon sx={{ fontSize: 40 }} />
+                                <SmartToyIcon sx={{ fontSize: 40, color: "#62f524" }} />
                                 <Card sx={{ backgroundColor: "#FFD580", maxWidth: 750, marginLeft: "15px"}}>
                                     <cardContent>
                                         <div className='replyArea'>
