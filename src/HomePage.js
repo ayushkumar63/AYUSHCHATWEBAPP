@@ -26,6 +26,7 @@ import { Switch as RouterSwitch } from "react-router-dom";
 import LoginPage from './LoginPage';
 import { Images } from './Images';
 import { Card, CardHeader, CardContent, CardMedia } from '@mui/material';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -44,7 +45,12 @@ export function HomePage() {
     const [thePosts, setThePosts] = React.useState([]);
     const [currentUser, setCurrentUser] = React.useState(null);
     const postField = document.getElementById('postField');
-    
+    const [reply, setReply] = React.useState("");
+    const genAI = new GoogleGenerativeAI("AIzaSyBwNZ6OZtChNEclvjc464GAqi6TtQBRHqE");
+    const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"})
+    const chat = model.startChat({history: []});
+    const [postString, setPostString] = React.useState("");
+
     const navigate = useNavigate();
 
     if (!auth.currentUser) {
@@ -88,9 +94,12 @@ export function HomePage() {
                     const postsQuery = query(postsRef, orderBy('timestamp', 'desc'));
                     const posts = await getDocs(postsQuery);
                     setThePosts(posts.docs);         
+                    const postsQueryAsc = query(postsRef, orderBy('timestamp', 'asc'));
+                    const postsAsc = await getDocs(postsQueryAsc);
                     /*const filteredData = posts.docs.map((doc) => {
                         console.log(doc.data());
                     })*/
+                    setPostString(postsAsc.docs.map((doc) => (doc.data().Name.toString() + ': ' + doc.data().Post.toString() + ';')))
                 } catch(err) {
                     console.log(err);
                 }
@@ -187,6 +196,18 @@ export function HomePage() {
         }
     };
 
+    const generatePrediction = async () => {
+        try {
+            const prompt = "These are the messages sent by different users on AyushChat till now: '" + postString + "'. Please summarise the latest chats in short and describe the current/latest theme of the chat.";
+            const reply = await chat.sendMessage(prompt);
+            const response = reply.response;
+            const Text = response.text();
+            setReply(Text);
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
     return(
         <>
         <AppBar sx={{ maxWidth: 4500 }} position='relative'>
@@ -226,6 +247,17 @@ export function HomePage() {
             <br />
             <br />
             <Button onClick={(uploadPost)} className='Button' variant='contained' color='secondary'>Post</Button>
+            <br />
+            <br />
+            <Typography variant='h4' color={"orange"}>Current Theme of Chat</Typography>
+            <br />
+            <Card sx={{ backgroundColor: '#32de84', maxWidth: 1000 }}>
+                <CardContent>
+                    <Typography variant='h5'>{reply}</Typography>
+                </CardContent>
+            </Card>
+            <br />
+            <Button variant='contained' color='secondary' onClick={generatePrediction}>Predict the Current Theme of Chat</Button>
             <br />
             <br />
             <Typography variant='h4' color={"#f8f835"}><b>Posts</b></Typography>
